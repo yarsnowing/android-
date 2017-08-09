@@ -12,42 +12,42 @@ import java.util.*;
 
 public class Jisuanqi extends Activity
 {
-	//0~9Ê®¸ö°´¼ü
+	//0~9åä¸ªæŒ‰é”®
     private Button[] btn = new Button[10];
-    //ÏÔÊ¾Æ÷,ÓÃÓÚÏÔÊ¾Êä³ö½á¹û
+    //æ˜¾ç¤ºå™¨,ç”¨äºæ˜¾ç¤ºè¾“å‡ºç»“æœ
     private EditText input;
-    //ÏÔÊ¾Æ÷ÏÂ·½µÄ¼ÇÒäÆ÷£¬ÓÃÓÚ¼ÇÂ¼ÉÏÒ»´Î¼ÆËã½á¹û
+    //æ˜¾ç¤ºå™¨ä¸‹æ–¹çš„è®°å¿†å™¨ï¼Œç”¨äºè®°å½•ä¸Šä¸€æ¬¡è®¡ç®—ç»“æœ
     private TextView mem;
-    //Èı½Ç¼ÆËãÊ±±êÖ¾ÏÔÊ¾£º½Ç¶È»¹ÊÇ»¡¶È
+    //ä¸‰è§’è®¡ç®—æ—¶æ ‡å¿—æ˜¾ç¤ºï¼šè§’åº¦è¿˜æ˜¯å¼§åº¦
     private TextView _drg;
-    //Ğ¡ÌáÊ¾£¬ÓÃÓÚ¼ÓÇ¿ÈË»ú½»»¥µÄÈõ¼ì²â¡¢ÌáÊ¾ 
+    //å°æç¤ºï¼Œç”¨äºåŠ å¼ºäººæœºäº¤äº’çš„å¼±æ£€æµ‹ã€æç¤º 
     private TextView tip;                            
     private Button
-        div, mul, sub, add, equal,            // ¡Â ¡Á - + =
-        sin, cos, tan, log, ln,               //º¯Êı
-        sqrt, square, factorial, bksp,  	  //¸ùºÅ  Æ½·½  ½×³Ë   ÍË¸ñ
-        left, right, dot, exit, drg,          //£¨     £©  .  ÍË³ö     ½Ç¶È»¡¶È¿ØÖÆ¼ü
-        mc, c;                                // memÇåÆÁ¼ü    inputÇåÆÁ¼ü
-    //±£´æÔ­À´µÄËãÊ½Ñù×Ó£¬ÎªÁËÊä³öÊ±ºÃ¿´£¬Òò¼ÆËãÊ±£¬ËãÊ½Ñù×Ó±»¸Ä±ä
+        div, mul, sub, add, equal,            // Ã· Ã— - + =
+        sin, cos, tan, log, ln,               //å‡½æ•°
+        sqrt, square, factorial, bksp,  	  //æ ¹å·  å¹³æ–¹  é˜¶ä¹˜   é€€æ ¼
+        left, right, dot, exit, drg,          //ï¼ˆ     ï¼‰  .  é€€å‡º     è§’åº¦å¼§åº¦æ§åˆ¶é”®
+        mc, c;                                // memæ¸…å±é”®    inputæ¸…å±é”®
+    //ä¿å­˜åŸæ¥çš„ç®—å¼æ ·å­ï¼Œä¸ºäº†è¾“å‡ºæ—¶å¥½çœ‹ï¼Œå› è®¡ç®—æ—¶ï¼Œç®—å¼æ ·å­è¢«æ”¹å˜
     public String str_old;
-    //±ä»»Ñù×ÓºóµÄÊ½×Ó
+    //å˜æ¢æ ·å­åçš„å¼å­
     public String str_new;
-    //ÊäÈë¿ØÖÆ£¬trueÎªÖØĞÂÊäÈë£¬falseÎª½Ó×ÅÊäÈë
+    //è¾“å…¥æ§åˆ¶ï¼Œtrueä¸ºé‡æ–°è¾“å…¥ï¼Œfalseä¸ºæ¥ç€è¾“å…¥
     public boolean vbegin = true;
-    //¿ØÖÆDRG°´¼ü£¬trueÎª½Ç¶È£¬falseÎª»¡¶È
+    //æ§åˆ¶DRGæŒ‰é”®ï¼Œtrueä¸ºè§’åº¦ï¼Œfalseä¸ºå¼§åº¦
     public boolean drg_flag = true;
-    //¦ĞÖµ£º3.14
+    //Ï€å€¼ï¼š3.14
     public double pi=4*Math.atan(1);
-    //true±íÊ¾ÕıÈ·£¬¿ÉÒÔ¼ÌĞøÊäÈë£»false±íÊ¾ÓĞÎó£¬ÊäÈë±»Ëø¶¨
+    //trueè¡¨ç¤ºæ­£ç¡®ï¼Œå¯ä»¥ç»§ç»­è¾“å…¥ï¼›falseè¡¨ç¤ºæœ‰è¯¯ï¼Œè¾“å…¥è¢«é”å®š
     public boolean tip_lock = true;
-    //ÅĞ¶ÏÊÇ·ñÊÇ°´=Ö®ºóµÄÊäÈë£¬true±íÊ¾ÊäÈëÔÚ=Ö®Ç°£¬false·´Ö®
+    //åˆ¤æ–­æ˜¯å¦æ˜¯æŒ‰=ä¹‹åçš„è¾“å…¥ï¼Œtrueè¡¨ç¤ºè¾“å…¥åœ¨=ä¹‹å‰ï¼Œfalseåä¹‹
     public boolean equals_flag = true;  
 
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
         setContentView(R.layout.main);
-        //»ñÈ¡½çÃæÔªËØ
+        //è·å–ç•Œé¢å…ƒç´ 
         input = (EditText)findViewById(R.id.input);
         mem = (TextView)findViewById(R.id.mem);
         tip = (TextView)findViewById(R.id.tip); 
@@ -83,11 +83,11 @@ public class Jisuanqi extends Activity
         drg = (Button)findViewById(R.id.drg);
         mc = (Button)findViewById(R.id.mc);
         c = (Button)findViewById(R.id.c);
-        //ÎªÊı×Ö°´¼ü°ó¶¨¼àÌıÆ÷
+        //ä¸ºæ•°å­—æŒ‰é”®ç»‘å®šç›‘å¬å™¨
         for(int i = 0; i < 10; ++i) {
             btn[i].setOnClickListener(actionPerformed);
         }
-        //Îª+-x¡ÂµÈ°´¼ü°ó¶¨¼àÌıÆ÷
+        //ä¸º+-xÃ·ç­‰æŒ‰é”®ç»‘å®šç›‘å¬å™¨
         div.setOnClickListener(actionPerformed);
         mul.setOnClickListener(actionPerformed);
         sub.setOnClickListener(actionPerformed);
@@ -112,23 +112,23 @@ public class Jisuanqi extends Activity
     }
     
     /*
-     * ¼üÅÌÃüÁî²¶×½
+     * é”®ç›˜å‘½ä»¤æ•æ‰
      */
-    //ÃüÁî»º´æ£¬ÓÃÓÚ¼ì²âÊäÈëºÏ·¨ĞÔ
+    //å‘½ä»¤ç¼“å­˜ï¼Œç”¨äºæ£€æµ‹è¾“å…¥åˆæ³•æ€§
     String[] Tipcommand = new String[500]; 
-    //TipcommandµÄÖ¸Õë
+    //Tipcommandçš„æŒ‡é’ˆ
     int tip_i = 0;         
     private OnClickListener actionPerformed = new OnClickListener() {
         public void onClick(View v) {
-        	//°´¼üÉÏµÄÃüÁî»ñÈ¡
+        	//æŒ‰é”®ä¸Šçš„å‘½ä»¤è·å–
             String command = ((Button)v).getText().toString();
-            //ÏÔÊ¾Æ÷ÉÏµÄ×Ö·û´®
+            //æ˜¾ç¤ºå™¨ä¸Šçš„å­—ç¬¦ä¸²
             String str = input.getText().toString();  
-            //¼ì²âÊäÈëÊÇ·ñºÏ·¨
-            if(equals_flag == false && "0123456789.()sincostanlnlogn!+-¡Á¡Â¡Ì^".indexOf(command) != -1) {
-            	//¼ì²âÏÔÊ¾Æ÷ÉÏµÄ×Ö·û´®ÊÇ·ñºÏ·¨
+            //æ£€æµ‹è¾“å…¥æ˜¯å¦åˆæ³•
+            if(equals_flag == false && "0123456789.()sincostanlnlogn!+-Ã—Ã·âˆš^".indexOf(command) != -1) {
+            	//æ£€æµ‹æ˜¾ç¤ºå™¨ä¸Šçš„å­—ç¬¦ä¸²æ˜¯å¦åˆæ³•
                 if(right(str)) {
-                    if("+-¡Á¡Â¡Ì^)".indexOf(command) != -1) {
+                    if("+-Ã—Ã·âˆš^)".indexOf(command) != -1) {
                         for(int i =0 ; i < str.length(); i++) {
                             Tipcommand[tip_i] = String.valueOf(str.charAt(i));
                             tip_i++;
@@ -140,7 +140,7 @@ public class Jisuanqi extends Activity
                     vbegin = true;
                     tip_i = 0;
                     tip_lock = true;
-                    tip.setText("»¶Ó­Ê¹ÓÃ£¡");
+                    tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
                 }
 
                 equals_flag = true;
@@ -150,15 +150,15 @@ public class Jisuanqi extends Activity
             else if(tip_i == 0) {
                     TipChecker("#" , command);
             }
-            if("0123456789.()sincostanlnlogn!+-¡Á¡Â¡Ì^".indexOf(command) != -1 && tip_lock) {
+            if("0123456789.()sincostanlnlogn!+-Ã—Ã·âˆš^".indexOf(command) != -1 && tip_lock) {
                 Tipcommand[tip_i] = command;
                 tip_i++;
             } 
-            //ÈôÊäÈëÕıÈ·£¬Ôò½«ÊäÈëĞÅÏ¢ÏÔÊ¾µ½ÏÔÊ¾Æ÷ÉÏ
-            if("0123456789.()sincostanlnlogn!+-¡Á¡Â¡Ì^".indexOf(command) != -1 
-                    && tip_lock) { //¹²25¸ö°´¼ü
+            //è‹¥è¾“å…¥æ­£ç¡®ï¼Œåˆ™å°†è¾“å…¥ä¿¡æ¯æ˜¾ç¤ºåˆ°æ˜¾ç¤ºå™¨ä¸Š
+            if("0123456789.()sincostanlnlogn!+-Ã—Ã·âˆš^".indexOf(command) != -1 
+                    && tip_lock) { //å…±25ä¸ªæŒ‰é”®
                 print(command);
-            //Èô¹ûµã»÷ÁË¡°DRG¡±£¬ÔòÇĞ»»µ±Ç°»¡¶È½Ç¶ÈÖÆ£¬²¢½«ÇĞ»»ºóµÄ½á¹ûÏÔÊ¾µ½°´¼üÉÏ·½¡£
+            //è‹¥æœç‚¹å‡»äº†â€œDRGâ€ï¼Œåˆ™åˆ‡æ¢å½“å‰å¼§åº¦è§’åº¦åˆ¶ï¼Œå¹¶å°†åˆ‡æ¢åçš„ç»“æœæ˜¾ç¤ºåˆ°æŒ‰é”®ä¸Šæ–¹ã€‚
             } else if(command.compareTo("DRG") == 0 && tip_lock) {
                 if(drg_flag == true) {
                     drg_flag = false;
@@ -167,9 +167,9 @@ public class Jisuanqi extends Activity
                     drg_flag = true;
                     _drg.setText("   DEG");
                 }
-                //Èç¹ûÊäÈëÊ±ÍË¸ñ¼ü£¬²¢ÇÒÊÇÔÚ°´=Ö®Ç°
+                //å¦‚æœè¾“å…¥æ—¶é€€æ ¼é”®ï¼Œå¹¶ä¸”æ˜¯åœ¨æŒ‰=ä¹‹å‰
             } else if(command.compareTo("Bksp") == 0 && equals_flag) {
-            	//Ò»´ÎÉ¾³ı3¸ö×Ö·û
+            	//ä¸€æ¬¡åˆ é™¤3ä¸ªå­—ç¬¦
                 if(TTO(str) == 3) {
                     if(str.length() > 3)
                         input.setText(str.substring(0, str.length() - 3)); 
@@ -177,9 +177,9 @@ public class Jisuanqi extends Activity
                         input.setText("0");   
                         vbegin = true;
                         tip_i = 0;
-                        tip.setText("»¶Ó­Ê¹ÓÃ£¡");
+                        tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
                     }
-                //ÒÀ´ÎÉ¾³ı2¸ö×Ö·û
+                //ä¾æ¬¡åˆ é™¤2ä¸ªå­—ç¬¦
                 } else if(TTO(str) == 2) {
                     if(str.length() > 2)
                         input.setText(str.substring(0, str.length() - 2)); 
@@ -187,11 +187,11 @@ public class Jisuanqi extends Activity
                         input.setText("0");   
                         vbegin = true;
                         tip_i = 0;
-                        tip.setText("»¶Ó­Ê¹ÓÃ£¡");
+                        tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
                     }
-                //ÒÀ´ÎÉ¾³ıÒ»¸ö×Ö·û
+                //ä¾æ¬¡åˆ é™¤ä¸€ä¸ªå­—ç¬¦
                 } else if(TTO(str) == 1) {
-                	//ÈôÖ®Ç°ÊäÈëµÄ×Ö·û´®ºÏ·¨ÔòÉ¾³ıÒ»¸ö×Ö·û
+                	//è‹¥ä¹‹å‰è¾“å…¥çš„å­—ç¬¦ä¸²åˆæ³•åˆ™åˆ é™¤ä¸€ä¸ªå­—ç¬¦
                     if(right(str)) {
                         if(str.length() > 1)
                             input.setText(str.substring(0, str.length() - 1)); 
@@ -199,93 +199,93 @@ public class Jisuanqi extends Activity
                             input.setText("0");   
                             vbegin = true;
                             tip_i = 0;
-                            tip.setText("»¶Ó­Ê¹ÓÃ£¡");
+                            tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
                         }
-                        //ÈôÖ®Ç°ÊäÈëµÄ×Ö·û´®²»ºÏ·¨ÔòÉ¾³ıÈ«²¿×Ö·û
+                        //è‹¥ä¹‹å‰è¾“å…¥çš„å­—ç¬¦ä¸²ä¸åˆæ³•åˆ™åˆ é™¤å…¨éƒ¨å­—ç¬¦
                     } else {
                         input.setText("0");   
                         vbegin = true;
                         tip_i = 0;
-                        tip.setText("»¶Ó­Ê¹ÓÃ£¡");
+                        tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
                     }
                 }
                 if(input.getText().toString().compareTo("-") == 0 || equals_flag == false) {
                     input.setText("0");
                     vbegin = true;
                     tip_i = 0;
-                    tip.setText("»¶Ó­Ê¹ÓÃ£¡");
+                    tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
                 }
                 tip_lock = true;
                 if(tip_i > 0)
                     tip_i--;
-            //Èç¹ûÊÇÔÚ°´=Ö®ºóÊäÈëÍË¸ñ¼ü
+            //å¦‚æœæ˜¯åœ¨æŒ‰=ä¹‹åè¾“å…¥é€€æ ¼é”®
             } else if(command.compareTo("Bksp") == 0 && equals_flag ==false) {
-            	//½«ÏÔÊ¾Æ÷ÄÚÈİÉèÖÃÎª0
+            	//å°†æ˜¾ç¤ºå™¨å†…å®¹è®¾ç½®ä¸º0
                 input.setText("0");
                 vbegin = true;
                 tip_i = 0;
                 tip_lock = true;
-                tip.setText("»¶Ó­Ê¹ÓÃ£¡");
-            //Èç¹ûÊäÈëµÄÊÇÇå³ı¼ü
+                tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
+            //å¦‚æœè¾“å…¥çš„æ˜¯æ¸…é™¤é”®
             } else if(command.compareTo("C") == 0) {
-            	//½«ÏÔÊ¾Æ÷ÄÚÈİÉèÖÃÎª0
+            	//å°†æ˜¾ç¤ºå™¨å†…å®¹è®¾ç½®ä¸º0
                 input.setText("0");
-                //ÖØĞÂÊäÈë±êÖ¾ÖÃÎªtrue
+                //é‡æ–°è¾“å…¥æ ‡å¿—ç½®ä¸ºtrue
                 vbegin = true;
-                //»º´æÃüÁîÎ»ÊıÇå0
+                //ç¼“å­˜å‘½ä»¤ä½æ•°æ¸…0
                 tip_i = 0;
-                //±íÃ÷¿ÉÒÔ¼ÌĞøÊäÈë
+                //è¡¨æ˜å¯ä»¥ç»§ç»­è¾“å…¥
                 tip_lock = true;
-                //±íÃ÷ÊäÈë=Ö®Ç°
+                //è¡¨æ˜è¾“å…¥=ä¹‹å‰
                 equals_flag = true;
-                tip.setText("»¶Ó­Ê¹ÓÃ£¡");
-                //Èç¹ûÊäÈëµÄÊÇ¡±MC¡°£¬Ôò½«´æ´¢Æ÷ÄÚÈİÇå0
+                tip.setText("æ¬¢è¿ä½¿ç”¨ï¼");
+                //å¦‚æœè¾“å…¥çš„æ˜¯â€MCâ€œï¼Œåˆ™å°†å­˜å‚¨å™¨å†…å®¹æ¸…0
             } else if(command.compareTo("MC") == 0) {
                 mem.setText("0");
-                //Èç¹û°´¡±exit¡°ÔòÍË³ö³ÌĞò
+                //å¦‚æœæŒ‰â€exitâ€œåˆ™é€€å‡ºç¨‹åº
             } else if(command.compareTo("exit") == 0) {
                 System.exit(0);
-            //Èç¹ûÊäÈëµÄÊÇ=ºÅ£¬²¢ÇÒÊäÈëºÏ·¨
+            //å¦‚æœè¾“å…¥çš„æ˜¯=å·ï¼Œå¹¶ä¸”è¾“å…¥åˆæ³•
             } else if(command.compareTo("=") == 0 && tip_lock && right(str) && equals_flag) {
                 tip_i = 0;
-                //±íÃ÷²»¿ÉÒÔ¼ÌĞøÊäÈë
+                //è¡¨æ˜ä¸å¯ä»¥ç»§ç»­è¾“å…¥
                 tip_lock = false;
-                //±íÃ÷ÊäÈë=Ö®ºó
+                //è¡¨æ˜è¾“å…¥=ä¹‹å
                 equals_flag = false;
-                //±£´æÔ­À´ËãÊ½Ñù×Ó
+                //ä¿å­˜åŸæ¥ç®—å¼æ ·å­
                 str_old = str;
-                //Ìæ»»ËãÊ½ÖĞµÄÔËËã·û£¬±ãÓÚ¼ÆËã
+                //æ›¿æ¢ç®—å¼ä¸­çš„è¿ç®—ç¬¦ï¼Œä¾¿äºè®¡ç®—
                 str = str.replaceAll("sin", "s");
                 str = str.replaceAll("cos", "c");
                 str = str.replaceAll("tan", "t");
                 str = str.replaceAll("log", "g");
                 str = str.replaceAll("ln", "l");
                 str = str.replaceAll("n!", "!");
-                //ÖØĞÂÊäÈë±êÖ¾ÉèÖÃtrue
+                //é‡æ–°è¾“å…¥æ ‡å¿—è®¾ç½®true
                 vbegin = true;
-                //½«-1x×ª»»³É-
-                str_new = str.replaceAll("-", "-1¡Á");
-                //¼ÆËãËãÊ½½á¹û
+                //å°†-1xè½¬æ¢æˆ-
+                str_new = str.replaceAll("-", "-1Ã—");
+                //è®¡ç®—ç®—å¼ç»“æœ
                 new calc().process(str_new);
             }
-            //±íÃ÷¿ÉÒÔ¼ÌĞøÊäÈë
+            //è¡¨æ˜å¯ä»¥ç»§ç»­è¾“å…¥
             tip_lock = true;
         }
     };
-    //ÏòinputÊä³ö×Ö·û
+    //å‘inputè¾“å‡ºå­—ç¬¦
     private void print(String str) {
-    	//ÇåÆÁºóÊä³ö
+    	//æ¸…å±åè¾“å‡º
         if(vbegin)
             input.setText(str);
-        //ÔÚÆÁÄ»Ô­strºóÔöÌí×Ö·û
+        //åœ¨å±å¹•åŸstråå¢æ·»å­—ç¬¦
         else
             input.append(str);
         vbegin = false;
     }  
     /*
-     * ÅĞ¶ÏÒ»¸östrÊÇ·ñÊÇºÏ·¨µÄ£¬·µ»ØÖµÎªtrue¡¢false
-     * Ö»°üº¬0123456789.()sincostanlnlogn!+-¡Á¡Â¡Ì^µÄÊÇºÏ·¨µÄstr£¬·µ»Øtrue
-     * °üº¬ÁË³ı0123456789.()sincostanlnlogn!+-¡Á¡Â¡Ì^ÒÔÍâµÄ×Ö·ûµÄstrÎª·Ç·¨µÄ£¬·µ»Øfalse
+     * åˆ¤æ–­ä¸€ä¸ªstræ˜¯å¦æ˜¯åˆæ³•çš„ï¼Œè¿”å›å€¼ä¸ºtrueã€false
+     * åªåŒ…å«0123456789.()sincostanlnlogn!+-Ã—Ã·âˆš^çš„æ˜¯åˆæ³•çš„strï¼Œè¿”å›true
+     * åŒ…å«äº†é™¤0123456789.()sincostanlnlogn!+-Ã—Ã·âˆš^ä»¥å¤–çš„å­—ç¬¦çš„strä¸ºéæ³•çš„ï¼Œè¿”å›false
      */
     private boolean right(String str) {
         int i = 0;
@@ -294,8 +294,8 @@ public class Jisuanqi extends Activity
                     str.charAt(i)!='3' && str.charAt(i)!='4' && str.charAt(i)!='5' && 
                     str.charAt(i)!='6' && str.charAt(i)!='7' && str.charAt(i)!='8' && 
                     str.charAt(i)!='9' && str.charAt(i)!='.' && str.charAt(i)!='-' &&
-                    str.charAt(i)!='+' && str.charAt(i)!='¡Á' && str.charAt(i)!='¡Â' &&
-                    str.charAt(i)!='¡Ì' && str.charAt(i)!='^' && str.charAt(i)!='s' &&
+                    str.charAt(i)!='+' && str.charAt(i)!='Ã—' && str.charAt(i)!='Ã·' &&
+                    str.charAt(i)!='âˆš' && str.charAt(i)!='^' && str.charAt(i)!='s' &&
                     str.charAt(i)!='i' && str.charAt(i)!='n' && str.charAt(i)!='c' &&
                     str.charAt(i)!='o' && str.charAt(i)!='t' && str.charAt(i)!='a' &&
                     str.charAt(i)!='l' && str.charAt(i)!='g' && str.charAt(i)!='(' &&
@@ -309,11 +309,11 @@ public class Jisuanqi extends Activity
         }
     }
     /*
-     * ¼ì²âº¯Êı£¬·µ»ØÖµÎª3¡¢2¡¢1  ±íÊ¾Ó¦µ±Ò»´ÎÉ¾³ı¼¸¸ö£¿  Three+Two+One = TTO
-     * ÎªBksp°´Å¥µÄÉ¾³ı·½Ê½Ìá¹©ÒÀ¾İ
-     * ·µ»Ø3£¬±íÊ¾strÎ²²¿Îªsin¡¢cos¡¢tan¡¢logÖĞµÄÒ»¸ö£¬Ó¦µ±Ò»´ÎÉ¾³ı3¸ö
-     * ·µ»Ø2£¬±íÊ¾strÎ²²¿Îªln¡¢n!ÖĞµÄÒ»¸ö£¬Ó¦µ±Ò»´ÎÉ¾³ı2¸ö
-     * ·µ»Ø1£¬±íÊ¾Îª³ı·µ»Ø3¡¢2ÍâµÄËùÓĞÇé¿ö£¬Ö»ĞèÉ¾³ıÒ»¸ö£¨°üº¬·Ç·¨×Ö·ûÊ±ÒªÁíÍâ¿¼ÂÇ£ºÓ¦ÇåÆÁ£©
+     * æ£€æµ‹å‡½æ•°ï¼Œè¿”å›å€¼ä¸º3ã€2ã€1  è¡¨ç¤ºåº”å½“ä¸€æ¬¡åˆ é™¤å‡ ä¸ªï¼Ÿ  Three+Two+One = TTO
+     * ä¸ºBkspæŒ‰é’®çš„åˆ é™¤æ–¹å¼æä¾›ä¾æ®
+     * è¿”å›3ï¼Œè¡¨ç¤ºstrå°¾éƒ¨ä¸ºsinã€cosã€tanã€logä¸­çš„ä¸€ä¸ªï¼Œåº”å½“ä¸€æ¬¡åˆ é™¤3ä¸ª
+     * è¿”å›2ï¼Œè¡¨ç¤ºstrå°¾éƒ¨ä¸ºlnã€n!ä¸­çš„ä¸€ä¸ªï¼Œåº”å½“ä¸€æ¬¡åˆ é™¤2ä¸ª
+     * è¿”å›1ï¼Œè¡¨ç¤ºä¸ºé™¤è¿”å›3ã€2å¤–çš„æ‰€æœ‰æƒ…å†µï¼Œåªéœ€åˆ é™¤ä¸€ä¸ªï¼ˆåŒ…å«éæ³•å­—ç¬¦æ—¶è¦å¦å¤–è€ƒè™‘ï¼šåº”æ¸…å±ï¼‰
      */
     private int TTO(String str) {  
         if((str.charAt(str.length() - 1) == 'n' && 
@@ -337,35 +337,35 @@ public class Jisuanqi extends Activity
         } else { return 1; }
     }  
     /*
-     * ¼ì²âº¯Êı£¬¶Ôstr½øĞĞÇ°ºóÓï·¨¼ì²â
-     * ÎªTipµÄÌáÊ¾·½Ê½Ìá¹©ÒÀ¾İ£¬ÓëTipShow()ÅäºÏÊ¹ÓÃ
-     *  ±àºÅ ×Ö·û    Æäºó¿ÉÒÔ¸úËæµÄºÏ·¨×Ö·û
-     *   1  £¨                 Êı×Ö|£¨|-|.|º¯Êı
-     *   2   £©                Ëã·û|£©|¡Ì ^
-     *   3  .      Êı×Ö|Ëã·û|£©|¡Ì ^
-     *   4   Êı×Ö        .|Êı×Ö|Ëã·û|£©|¡Ì ^
-     *   5   Ëã·û             Êı×Ö|£¨|.|º¯Êı
-     *   6 ¡Ì ^     £¨ |. | Êı×Ö
-     *   7  º¯Êı           Êı×Ö|£¨|.
+     * æ£€æµ‹å‡½æ•°ï¼Œå¯¹strè¿›è¡Œå‰åè¯­æ³•æ£€æµ‹
+     * ä¸ºTipçš„æç¤ºæ–¹å¼æä¾›ä¾æ®ï¼Œä¸TipShow()é…åˆä½¿ç”¨
+     *  ç¼–å· å­—ç¬¦    å…¶åå¯ä»¥è·Ÿéšçš„åˆæ³•å­—ç¬¦
+     *   1  ï¼ˆ                 æ•°å­—|ï¼ˆ|-|.|å‡½æ•°
+     *   2   ï¼‰                ç®—ç¬¦|ï¼‰|âˆš ^
+     *   3  .      æ•°å­—|ç®—ç¬¦|ï¼‰|âˆš ^
+     *   4   æ•°å­—        .|æ•°å­—|ç®—ç¬¦|ï¼‰|âˆš ^
+     *   5   ç®—ç¬¦             æ•°å­—|ï¼ˆ|.|å‡½æ•°
+     *   6 âˆš ^     ï¼ˆ |. | æ•°å­—
+     *   7  å‡½æ•°           æ•°å­—|ï¼ˆ|.
      *   
-     * Ğ¡ÊıµãÇ°ºó¾ù¿ÉÊ¡ÂÔ£¬±íÊ¾0
-     * Êı×ÖµÚÒ»Î»¿ÉÒÔÎª0
+     * å°æ•°ç‚¹å‰åå‡å¯çœç•¥ï¼Œè¡¨ç¤º0
+     * æ•°å­—ç¬¬ä¸€ä½å¯ä»¥ä¸º0
      */
     private void TipChecker(String tipcommand1,String tipcommand2) {
-    	//Tipcode1±íÊ¾´íÎóÀàĞÍ£¬Tipcode2±íÊ¾Ãû´Ê½âÊÍÀàĞÍ
+    	//Tipcode1è¡¨ç¤ºé”™è¯¯ç±»å‹ï¼ŒTipcode2è¡¨ç¤ºåè¯è§£é‡Šç±»å‹
     	int Tipcode1 = 0 , Tipcode2 = 0;
-        //±íÊ¾ÃüÁîÀàĞÍ
+        //è¡¨ç¤ºå‘½ä»¤ç±»å‹
         int tiptype1 = 0 , tiptype2 = 0;
-        //À¨ºÅÊı
+        //æ‹¬å·æ•°
         int bracket = 0;
-        //¡°+-x¡Â¡Ì^¡±²»ÄÜ×÷ÎªµÚÒ»Î»
-        if(tipcommand1.compareTo("#") == 0 && (tipcommand2.compareTo("¡Â") == 0 || 
-                tipcommand2.compareTo("¡Á") == 0 || tipcommand2.compareTo("+") == 0 || 
-                tipcommand2.compareTo(")") == 0 || tipcommand2.compareTo("¡Ì") == 0 ||
+        //â€œ+-xÃ·âˆš^â€ä¸èƒ½ä½œä¸ºç¬¬ä¸€ä½
+        if(tipcommand1.compareTo("#") == 0 && (tipcommand2.compareTo("Ã·") == 0 || 
+                tipcommand2.compareTo("Ã—") == 0 || tipcommand2.compareTo("+") == 0 || 
+                tipcommand2.compareTo(")") == 0 || tipcommand2.compareTo("âˆš") == 0 ||
                 tipcommand2.compareTo("^") == 0)) {
             Tipcode1 = -1;
         }
-        //¶¨Òå´æ´¢×Ö·û´®ÖĞ×îºóÒ»Î»µÄÀàĞÍ
+        //å®šä¹‰å­˜å‚¨å­—ç¬¦ä¸²ä¸­æœ€åä¸€ä½çš„ç±»å‹
         else if(tipcommand1.compareTo("#") != 0) {
             if(tipcommand1.compareTo("(") == 0) {
                 tiptype1 = 1;
@@ -375,14 +375,14 @@ public class Jisuanqi extends Activity
                 tiptype1 = 3;
             } else if("0123456789".indexOf(tipcommand1) != -1) {
                 tiptype1 = 4;
-            } else if("+-¡Á¡Â".indexOf(tipcommand1) != -1) {
+            } else if("+-Ã—Ã·".indexOf(tipcommand1) != -1) {
                 tiptype1 = 5;
-            } else if("¡Ì^".indexOf(tipcommand1) != -1) {
+            } else if("âˆš^".indexOf(tipcommand1) != -1) {
                 tiptype1 = 6;
             } else if("sincostanloglnn!".indexOf(tipcommand1) != -1) {
                 tiptype1 = 7;
             }
-            //¶¨ÒåÓûÊäÈëµÄ°´¼üÀàĞÍ
+            //å®šä¹‰æ¬²è¾“å…¥çš„æŒ‰é”®ç±»å‹
             if(tipcommand2.compareTo("(") == 0) {
                 tiptype2 = 1;
             } else if(tipcommand2.compareTo(")") == 0) {
@@ -391,9 +391,9 @@ public class Jisuanqi extends Activity
                 tiptype2 = 3;
             } else if("0123456789".indexOf(tipcommand2) != -1) {
                 tiptype2 = 4;
-            } else if("+-¡Á¡Â".indexOf(tipcommand2) != -1) {
+            } else if("+-Ã—Ã·".indexOf(tipcommand2) != -1) {
                 tiptype2 = 5;
-            } else if("¡Ì^".indexOf(tipcommand2) != -1) {
+            } else if("âˆš^".indexOf(tipcommand2) != -1) {
                 tiptype2 = 6;
             } else if("sincostanloglnn!".indexOf(tipcommand2) != -1) {
                 tiptype2 = 7;
@@ -401,92 +401,92 @@ public class Jisuanqi extends Activity
             
             switch(tiptype1) {
             case 1:
-            	//×óÀ¨ºÅºóÃæÖ±½Ó½ÓÓÒÀ¨ºÅ,¡°+x¡Â¡±£¨¸ººÅ¡°-¡±²»Ëã£©,»òÕß"¡Ì^"
+            	//å·¦æ‹¬å·åé¢ç›´æ¥æ¥å³æ‹¬å·,â€œ+xÃ·â€ï¼ˆè´Ÿå·â€œ-â€ä¸ç®—ï¼‰,æˆ–è€…"âˆš^"
                 if(tiptype2 == 2 || (tiptype2 == 5 && tipcommand2.compareTo("-") != 0) || 
                         tiptype2 == 6) 
                     Tipcode1 = 1;
                 break;
             case 2:
-            	//ÓÒÀ¨ºÅºóÃæ½Ó×óÀ¨ºÅ£¬Êı×Ö£¬¡°+-x¡Âsin^...¡±
+            	//å³æ‹¬å·åé¢æ¥å·¦æ‹¬å·ï¼Œæ•°å­—ï¼Œâ€œ+-xÃ·sin^...â€
                 if(tiptype2 == 1 || tiptype2 == 3 || tiptype2 == 4 || tiptype2 == 7)
                 	Tipcode1 = 2;
                 break;
             case 3:
-            	//¡°.¡±ºóÃæ½Ó×óÀ¨ºÅ»òÕß¡°sincos...¡±
+            	//â€œ.â€åé¢æ¥å·¦æ‹¬å·æˆ–è€…â€œsincos...â€
                 if(tiptype2 == 1 || tiptype2 == 7)
                 	Tipcode1 = 3;
-                //Á¬ĞøÊäÈëÁ½¸ö¡°.¡±
+                //è¿ç»­è¾“å…¥ä¸¤ä¸ªâ€œ.â€
                 if(tiptype2 == 3)
                 	Tipcode1 = 8;
                 break;            
             case 4:
-            	//Êı×ÖºóÃæÖ±½Ó½Ó×óÀ¨ºÅ»òÕß¡°sincos...¡±
+            	//æ•°å­—åé¢ç›´æ¥æ¥å·¦æ‹¬å·æˆ–è€…â€œsincos...â€
                 if(tiptype2 == 1 || tiptype2 == 7)
                 	Tipcode1 = 4;
                 break;
             case 5:
-            	//¡°+-x¡Â¡±ºóÃæÖ±½Ó½ÓÓÒÀ¨ºÅ£¬¡°+-x¡Â¡Ì^¡±
+            	//â€œ+-xÃ·â€åé¢ç›´æ¥æ¥å³æ‹¬å·ï¼Œâ€œ+-xÃ·âˆš^â€
                 if(tiptype2 == 2 || tiptype2 == 5 || tiptype2 == 6)
                 	Tipcode1 = 5;
                 break;
             case 6:
-            	//¡°¡Ì^¡±ºóÃæÖ±½Ó½ÓÓÒÀ¨ºÅ£¬¡°+-x¡Â¡Ì^¡±ÒÔ¼°¡°sincos...¡±
+            	//â€œâˆš^â€åé¢ç›´æ¥æ¥å³æ‹¬å·ï¼Œâ€œ+-xÃ·âˆš^â€ä»¥åŠâ€œsincos...â€
                 if(tiptype2 == 2 || tiptype2 == 5 || tiptype2 == 6 || tiptype2 == 7)
                 	Tipcode1 = 6;
                 break;
             case 7:
-            	//¡°sincos...¡±ºóÃæÖ±½Ó½ÓÓÒÀ¨ºÅ¡°+-x¡Â¡Ì^¡±ÒÔ¼°¡°sincos...¡±
+            	//â€œsincos...â€åé¢ç›´æ¥æ¥å³æ‹¬å·â€œ+-xÃ·âˆš^â€ä»¥åŠâ€œsincos...â€
                 if(tiptype2 == 2 || tiptype2 == 5 || tiptype2 == 6 || tiptype2 == 7)
                 	Tipcode1 = 7;
                 break;
             }
         }
-        //¼ì²âĞ¡ÊıµãµÄÖØ¸´ĞÔ£¬Tipconde1=0,±íÃ÷Âú×ãÇ°ÃæµÄ¹æÔò
+        //æ£€æµ‹å°æ•°ç‚¹çš„é‡å¤æ€§ï¼ŒTipconde1=0,è¡¨æ˜æ»¡è¶³å‰é¢çš„è§„åˆ™
         if(Tipcode1 == 0 && tipcommand2.compareTo(".") == 0) {
             int tip_point = 0;
             for(int i = 0;i < tip_i;i++) {
-            	//ÈôÖ®Ç°³öÏÖÒ»¸öĞ¡Êıµãµã£¬ÔòĞ¡Êıµã¼ÆÊı¼Ó1
+            	//è‹¥ä¹‹å‰å‡ºç°ä¸€ä¸ªå°æ•°ç‚¹ç‚¹ï¼Œåˆ™å°æ•°ç‚¹è®¡æ•°åŠ 1
                 if(Tipcommand[i].compareTo(".") == 0) {
                     tip_point++;
                 }
-                //Èô³öÏÖÒÔÏÂ¼¸¸öÔËËã·ûÖ®Ò»£¬Ğ¡Êıµã¼ÆÊıÇåÁã
+                //è‹¥å‡ºç°ä»¥ä¸‹å‡ ä¸ªè¿ç®—ç¬¦ä¹‹ä¸€ï¼Œå°æ•°ç‚¹è®¡æ•°æ¸…é›¶
                 if(Tipcommand[i].compareTo("sin") == 0 || Tipcommand[i].compareTo("cos") == 0 ||
                         Tipcommand[i].compareTo("tan") == 0 || Tipcommand[i].compareTo("log") == 0 ||
                         Tipcommand[i].compareTo("ln") == 0 || Tipcommand[i].compareTo("n!") == 0 || 
-                        Tipcommand[i].compareTo("¡Ì") == 0 || Tipcommand[i].compareTo("^") == 0 || 
-                        Tipcommand[i].compareTo("¡Â") == 0 || Tipcommand[i].compareTo("¡Á") == 0 || 
+                        Tipcommand[i].compareTo("âˆš") == 0 || Tipcommand[i].compareTo("^") == 0 || 
+                        Tipcommand[i].compareTo("Ã·") == 0 || Tipcommand[i].compareTo("Ã—") == 0 || 
                         Tipcommand[i].compareTo("-") == 0 || Tipcommand[i].compareTo("+") == 0 || 
                         Tipcommand[i].compareTo("(") == 0 || Tipcommand[i].compareTo(")") == 0 ) {
                     tip_point = 0;
                 }
             }
             tip_point++;
-            //ÈôĞ¡Êıµã¼ÆÊı´óÓÚ1£¬±íÃ÷Ğ¡ÊıµãÖØ¸´ÁË
+            //è‹¥å°æ•°ç‚¹è®¡æ•°å¤§äº1ï¼Œè¡¨æ˜å°æ•°ç‚¹é‡å¤äº†
             if(tip_point > 1) {
                 Tipcode1 = 8;
             }
         }
-        //¼ì²âÓÒÀ¨ºÅÊÇ·ñÆ¥Åä
+        //æ£€æµ‹å³æ‹¬å·æ˜¯å¦åŒ¹é…
         if(Tipcode1 == 0 && tipcommand2.compareTo(")") == 0) {
             int tip_right_bracket = 0;
             for(int i = 0;i < tip_i;i++) {
-            	//Èç¹û³öÏÖÒ»¸ö×óÀ¨ºÅ£¬Ôò¼ÆÊı¼Ó1
+            	//å¦‚æœå‡ºç°ä¸€ä¸ªå·¦æ‹¬å·ï¼Œåˆ™è®¡æ•°åŠ 1
                 if(Tipcommand[i].compareTo("(") == 0) {
                     tip_right_bracket++;
                 }
-                //Èç¹û³öÏÖÒ»¸öÓÒÀ¨ºÅ£¬Ôò¼ÆÊı¼õ1
+                //å¦‚æœå‡ºç°ä¸€ä¸ªå³æ‹¬å·ï¼Œåˆ™è®¡æ•°å‡1
                 if(Tipcommand[i].compareTo(")") == 0) {
                     tip_right_bracket--;
                 }
             }
-            //Èç¹ûÓÒÀ¨ºÅ¼ÆÊı=0,±íÃ÷Ã»ÓĞÏìÓ¦µÄ×óÀ¨ºÅÓëµ±Ç°ÓÒÀ¨ºÅÆ¥Åä
+            //å¦‚æœå³æ‹¬å·è®¡æ•°=0,è¡¨æ˜æ²¡æœ‰å“åº”çš„å·¦æ‹¬å·ä¸å½“å‰å³æ‹¬å·åŒ¹é…
             if(tip_right_bracket == 0) {
                 Tipcode1 = 10; 
             }
         }
-        //¼ì²éÊäÈë=µÄºÏ·¨ĞÔ
+        //æ£€æŸ¥è¾“å…¥=çš„åˆæ³•æ€§
         if(Tipcode1 == 0 && tipcommand2.compareTo("=") == 0) {
-        	//À¨ºÅÆ¥ÅäÊı
+        	//æ‹¬å·åŒ¹é…æ•°
         	int tip_bracket = 0; 
             for(int i = 0;i < tip_i;i++) {
                 if(Tipcommand[i].compareTo("(") == 0) {
@@ -496,22 +496,22 @@ public class Jisuanqi extends Activity
                     tip_bracket--;
                 }
             }
-            //Èô´óÓÚ0£¬±íÃ÷×óÀ¨ºÅ»¹ÓĞÎ´Æ¥ÅäµÄ
+            //è‹¥å¤§äº0ï¼Œè¡¨æ˜å·¦æ‹¬å·è¿˜æœ‰æœªåŒ¹é…çš„
             if(tip_bracket > 0) {
                 Tipcode1 = 9; 
                 bracket = tip_bracket;
             } else if(tip_bracket == 0) {
-            	//ÈôÇ°Ò»¸ö×Ö·ûÊÇÒÔÏÂÖ®Ò»£¬±íÃ÷=ºÅ²»ºÏ·¨
-                if("¡Ì^sincostanloglnn!".indexOf(tipcommand1) != -1) {
+            	//è‹¥å‰ä¸€ä¸ªå­—ç¬¦æ˜¯ä»¥ä¸‹ä¹‹ä¸€ï¼Œè¡¨æ˜=å·ä¸åˆæ³•
+                if("âˆš^sincostanloglnn!".indexOf(tipcommand1) != -1) {
                     Tipcode1 = 6;
                 }
-                //ÈôÇ°Ò»¸ö×Ö·ûÊÇÒÔÏÂÖ®Ò»£¬±íÃ÷=ºÅ²»ºÏ·¨
-                if("+-¡Á¡Â".indexOf(tipcommand1) != -1) {
+                //è‹¥å‰ä¸€ä¸ªå­—ç¬¦æ˜¯ä»¥ä¸‹ä¹‹ä¸€ï¼Œè¡¨æ˜=å·ä¸åˆæ³•
+                if("+-Ã—Ã·".indexOf(tipcommand1) != -1) {
                     Tipcode1 = 5;
                 }
             }
         }
-        //ÈôÃüÁîÊ½ÒÔÏÂÖ®Ò»£¬ÔòÏÔÊ¾ÏàÓ¦µÄ°ïÖúĞÅÏ¢
+        //è‹¥å‘½ä»¤å¼ä»¥ä¸‹ä¹‹ä¸€ï¼Œåˆ™æ˜¾ç¤ºç›¸åº”çš„å¸®åŠ©ä¿¡æ¯
         if(tipcommand2.compareTo("MC") == 0) Tipcode2 = 1;
         if(tipcommand2.compareTo("C") == 0) Tipcode2 = 2;
         if(tipcommand2.compareTo("DRG") == 0) Tipcode2 = 3;
@@ -522,127 +522,127 @@ public class Jisuanqi extends Activity
         if(tipcommand2.compareTo("log") ==0) Tipcode2 = 8;
         if(tipcommand2.compareTo("ln") == 0) Tipcode2 = 9;
         if(tipcommand2.compareTo("n!") == 0) Tipcode2 = 10;
-        if(tipcommand2.compareTo("¡Ì") == 0) Tipcode2 = 11;
+        if(tipcommand2.compareTo("âˆš") == 0) Tipcode2 = 11;
         if(tipcommand2.compareTo("^") == 0) Tipcode2 = 12;
-        //ÏÔÊ¾°ïÖúºÍ´íÎóĞÅÏ¢
+        //æ˜¾ç¤ºå¸®åŠ©å’Œé”™è¯¯ä¿¡æ¯
         TipShow(bracket , Tipcode1 , Tipcode2 , tipcommand1 , tipcommand2);
     }
     
     /*
-     * ·´À¡TipĞÅÏ¢£¬¼ÓÇ¿ÈË»ú½»»¥£¬ÓëTipChecker()ÅäºÏÊ¹ÓÃ
+     * åé¦ˆTipä¿¡æ¯ï¼ŒåŠ å¼ºäººæœºäº¤äº’ï¼Œä¸TipChecker()é…åˆä½¿ç”¨
      */
     private void TipShow(int bracket , int tipcode1 , int tipcode2 , 
             String tipcommand1 , String tipcommand2) {
         String tipmessage = "";
         if(tipcode1 != 0) 
-        	tip_lock = false;//±íÃ÷ÊäÈëÓĞÎó
+        	tip_lock = false;//è¡¨æ˜è¾“å…¥æœ‰è¯¯
         switch(tipcode1) {
         case -1:
-            tipmessage = tipcommand2 + "  ²»ÄÜ×÷ÎªµÚÒ»¸öËã·û\n";
+            tipmessage = tipcommand2 + "  ä¸èƒ½ä½œä¸ºç¬¬ä¸€ä¸ªç®—ç¬¦\n";
             break;
         case 1:
-            tipmessage = tipcommand1 + "  ºóÓ¦ÊäÈë£ºÊı×Ö/(/./-/º¯Êı \n";
+            tipmessage = tipcommand1 + "  ååº”è¾“å…¥ï¼šæ•°å­—/(/./-/å‡½æ•° \n";
             break;
         case 2:
-            tipmessage = tipcommand1 + "  ºóÓ¦ÊäÈë£º)/Ëã·û \n";
+            tipmessage = tipcommand1 + "  ååº”è¾“å…¥ï¼š)/ç®—ç¬¦ \n";
             break;
         case 3:
-            tipmessage = tipcommand1 + "  ºóÓ¦ÊäÈë£º)/Êı×Ö/Ëã·û \n";
+            tipmessage = tipcommand1 + "  ååº”è¾“å…¥ï¼š)/æ•°å­—/ç®—ç¬¦ \n";
             break;
         case 4:
-            tipmessage = tipcommand1 + "  ºóÓ¦ÊäÈë£º)/./Êı×Ö /Ëã·û \n";
+            tipmessage = tipcommand1 + "  ååº”è¾“å…¥ï¼š)/./æ•°å­— /ç®—ç¬¦ \n";
             break;
         case 5:
-            tipmessage = tipcommand1 + "  ºóÓ¦ÊäÈë£º(/./Êı×Ö/º¯Êı \n";
+            tipmessage = tipcommand1 + "  ååº”è¾“å…¥ï¼š(/./æ•°å­—/å‡½æ•° \n";
             break;
         case 6:
-            tipmessage = tipcommand1 + "  ºóÓ¦ÊäÈë£º(/./Êı×Ö \n";
+            tipmessage = tipcommand1 + "  ååº”è¾“å…¥ï¼š(/./æ•°å­— \n";
             break;
         case 7:
-            tipmessage = tipcommand1 + "  ºóÓ¦ÊäÈë£º(/./Êı×Ö \n";
+            tipmessage = tipcommand1 + "  ååº”è¾“å…¥ï¼š(/./æ•°å­— \n";
             break;
         case 8:
-            tipmessage = "Ğ¡ÊıµãÖØ¸´\n";
+            tipmessage = "å°æ•°ç‚¹é‡å¤\n";
             break;
         case 9:
-            tipmessage = "²»ÄÜ¼ÆËã£¬È±ÉÙ "+ bracket +" ¸ö )";
+            tipmessage = "ä¸èƒ½è®¡ç®—ï¼Œç¼ºå°‘ "+ bracket +" ä¸ª )";
             break;
         case 10:
-            tipmessage = "²»ĞèÒª  )";
+            tipmessage = "ä¸éœ€è¦  )";
             break;
         }        
         switch(tipcode2) {
         case 1:
-            tipmessage = tipmessage + "[MC ÓÃ·¨: Çå³ı¼ÇÒä MEM]";
+            tipmessage = tipmessage + "[MC ç”¨æ³•: æ¸…é™¤è®°å¿† MEM]";
             break;
         case 2:
-            tipmessage = tipmessage + "[C ÓÃ·¨: ¹éÁã]";
+            tipmessage = tipmessage + "[C ç”¨æ³•: å½’é›¶]";
             break;
         case 3:
-            tipmessage = tipmessage + "[DRG ÓÃ·¨: Ñ¡Ôñ DEG »ò RAD]";
+            tipmessage = tipmessage + "[DRG ç”¨æ³•: é€‰æ‹© DEG æˆ– RAD]";
             break;
         case 4:
-            tipmessage = tipmessage + "[Bksp ÓÃ·¨: ÍË¸ñ]";
+            tipmessage = tipmessage + "[Bksp ç”¨æ³•: é€€æ ¼]";
             break;
         case 5:
-            tipmessage = tipmessage + "sin º¯ÊıÓÃ·¨Ê¾Àı£º\n" +
-                    "DEG£ºsin30 = 0.5      RAD£ºsin1 = 0.84\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "sin(cos45)£¬¶ø²»ÊÇsincos45" ;
+            tipmessage = tipmessage + "sin å‡½æ•°ç”¨æ³•ç¤ºä¾‹ï¼š\n" +
+                    "DEGï¼šsin30 = 0.5      RADï¼šsin1 = 0.84\n" +
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "sin(cos45)ï¼Œè€Œä¸æ˜¯sincos45" ;
             break;
         case 6:
-            tipmessage = tipmessage + "cos º¯ÊıÓÃ·¨Ê¾Àı£º\n" +
-                    "DEG£ºcos60 = 0.5      RAD£ºcos1 = 0.54\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "cos(sin45)£¬¶ø²»ÊÇcossin45" ;
+            tipmessage = tipmessage + "cos å‡½æ•°ç”¨æ³•ç¤ºä¾‹ï¼š\n" +
+                    "DEGï¼šcos60 = 0.5      RADï¼šcos1 = 0.54\n" +
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "cos(sin45)ï¼Œè€Œä¸æ˜¯cossin45" ;
             break;
         case 7:
-            tipmessage = tipmessage + "tan º¯ÊıÓÃ·¨Ê¾Àı£º\n" +
-                    "DEG£ºtan45 = 1      RAD£ºtan1 = 1.55\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "tan(cos45)£¬¶ø²»ÊÇtancos45" ;
+            tipmessage = tipmessage + "tan å‡½æ•°ç”¨æ³•ç¤ºä¾‹ï¼š\n" +
+                    "DEGï¼štan45 = 1      RADï¼štan1 = 1.55\n" +
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "tan(cos45)ï¼Œè€Œä¸æ˜¯tancos45" ;
             break;
         case 8:
-            tipmessage = tipmessage + "log º¯ÊıÓÃ·¨Ê¾Àı£º\n" +
+            tipmessage = tipmessage + "log å‡½æ•°ç”¨æ³•ç¤ºä¾‹ï¼š\n" +
                     "log10 = log(5+5) = 1\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "log(tan45)£¬¶ø²»ÊÇlogtan45" ;
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "log(tan45)ï¼Œè€Œä¸æ˜¯logtan45" ;
             break;
         case 9:
-            tipmessage = tipmessage + "ln º¯ÊıÓÃ·¨Ê¾Àı£º\n" +
+            tipmessage = tipmessage + "ln å‡½æ•°ç”¨æ³•ç¤ºä¾‹ï¼š\n" +
                     "ln10 = le(5+5) = 2.3   lne = 1\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "ln(tan45)£¬¶ø²»ÊÇlntan45" ;
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "ln(tan45)ï¼Œè€Œä¸æ˜¯lntan45" ;
             break;
         case 10:
-            tipmessage = tipmessage + "n! º¯ÊıÓÃ·¨Ê¾Àı£º\n" +
-                    "n!3 = n!(1+2) = 3¡Á2¡Á1 = 6\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "n!(log1000)£¬¶ø²»ÊÇn!log1000" ;
+            tipmessage = tipmessage + "n! å‡½æ•°ç”¨æ³•ç¤ºä¾‹ï¼š\n" +
+                    "n!3 = n!(1+2) = 3Ã—2Ã—1 = 6\n" +
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "n!(log1000)ï¼Œè€Œä¸æ˜¯n!log1000" ;
             break;
         case 11:
-            tipmessage = tipmessage + "¡Ì ÓÃ·¨Ê¾Àı£º¿ªÈÎÒâ´Î¸ùºÅ\n" +
-                    "Èç£º27¿ª3´Î¸ùÎª  27¡Ì3 = 3\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "(º¯Êı)¡Ì(º¯Êı) £¬ (n!3)¡Ì(log100) = 2.45";
+            tipmessage = tipmessage + "âˆš ç”¨æ³•ç¤ºä¾‹ï¼šå¼€ä»»æ„æ¬¡æ ¹å·\n" +
+                    "å¦‚ï¼š27å¼€3æ¬¡æ ¹ä¸º  27âˆš3 = 3\n" +
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "(å‡½æ•°)âˆš(å‡½æ•°) ï¼Œ (n!3)âˆš(log100) = 2.45";
             break;
         case 12:
-            tipmessage = tipmessage + "^ ÓÃ·¨Ê¾Àı£º¿ªÈÎÒâ´ÎÆ½·½\n" +
-                    "Èç£º2µÄ3´Î·½Îª  2^3 = 8\n" +
-                    "×¢£ºÓëÆäËûº¯ÊıÒ»ÆğÊ¹ÓÃÊ±Òª¼ÓÀ¨ºÅ£¬Èç£º\n" +
-                    "(º¯Êı)¡Ì(º¯Êı) £¬ (n!3)^(log100) = 36";
+            tipmessage = tipmessage + "^ ç”¨æ³•ç¤ºä¾‹ï¼šå¼€ä»»æ„æ¬¡å¹³æ–¹\n" +
+                    "å¦‚ï¼š2çš„3æ¬¡æ–¹ä¸º  2^3 = 8\n" +
+                    "æ³¨ï¼šä¸å…¶ä»–å‡½æ•°ä¸€èµ·ä½¿ç”¨æ—¶è¦åŠ æ‹¬å·ï¼Œå¦‚ï¼š\n" +
+                    "(å‡½æ•°)âˆš(å‡½æ•°) ï¼Œ (n!3)^(log100) = 36";
             break;
         }
-        //½«ÌáÊ¾ĞÅÏ¢ÏÔÊ¾µ½tip
+        //å°†æç¤ºä¿¡æ¯æ˜¾ç¤ºåˆ°tip
         tip.setText(tipmessage);
     }
     /*
-     * Õû¸ö¼ÆËãºËĞÄ£¬Ö»Òª½«±í´ïÊ½µÄÕû¸ö×Ö·û´®´«Èëcalc().process()¾Í¿ÉÒÔÊµĞĞ¼ÆËãÁË
-     * Ëã·¨°üÀ¨ÒÔÏÂ¼¸²¿·Ö£º
-     * 1¡¢¼ÆËã²¿·Ö           process(String str)  µ±È»£¬ÕâÊÇ½¨Á¢ÔÚ²é´íÎŞ´íÎóµÄÇé¿öÏÂ
-     * 2¡¢Êı¾İ¸ñÊ½»¯      FP(double n)         Ê¹Êı¾İÓĞÏàµ±µÄ¾«È·¶È
-     * 3¡¢½×³ËËã·¨           N(double n)          ¼ÆËãn!£¬½«½á¹û·µ»Ø
-     * 4¡¢´íÎóÌáÊ¾          showError(int code ,String str)  ½«´íÎó·µ»Ø
+     * æ•´ä¸ªè®¡ç®—æ ¸å¿ƒï¼Œåªè¦å°†è¡¨è¾¾å¼çš„æ•´ä¸ªå­—ç¬¦ä¸²ä¼ å…¥calc().process()å°±å¯ä»¥å®è¡Œè®¡ç®—äº†
+     * ç®—æ³•åŒ…æ‹¬ä»¥ä¸‹å‡ éƒ¨åˆ†ï¼š
+     * 1ã€è®¡ç®—éƒ¨åˆ†           process(String str)  å½“ç„¶ï¼Œè¿™æ˜¯å»ºç«‹åœ¨æŸ¥é”™æ— é”™è¯¯çš„æƒ…å†µä¸‹
+     * 2ã€æ•°æ®æ ¼å¼åŒ–      FP(double n)         ä½¿æ•°æ®æœ‰ç›¸å½“çš„ç²¾ç¡®åº¦
+     * 3ã€é˜¶ä¹˜ç®—æ³•           N(double n)          è®¡ç®—n!ï¼Œå°†ç»“æœè¿”å›
+     * 4ã€é”™è¯¯æç¤º          showError(int code ,String str)  å°†é”™è¯¯è¿”å›
      */
     public class calc {
          public calc(){
@@ -650,77 +650,77 @@ public class Jisuanqi extends Activity
         }
          final int MAXLEN = 500;
             /* 
-             * ¼ÆËã±í´ïÊ½
-             * ´Ó×óÏòÓÒÉ¨Ãè£¬Êı×ÖÈënumberÕ»£¬ÔËËã·ûÈëoperatorÕ»
-             * +-»ù±¾ÓÅÏÈ¼¶Îª1£¬¡Á¡Â»ù±¾ÓÅÏÈ¼¶Îª2£¬log ln sin cos tan n!»ù±¾ÓÅÏÈ¼¶Îª3£¬¡Ì^»ù±¾ÓÅÏÈ¼¶Îª4
-             * À¨ºÅÄÚ²ãÔËËã·û±ÈÍâ²ãÍ¬¼¶ÔËËã·ûÓÅÏÈ¼¶¸ß4
-             * µ±Ç°ÔËËã·ûÓÅÏÈ¼¶¸ßÓÚÕ»¶¥Ñ¹Õ»£¬µÍÓÚÕ»¶¥µ¯³öÒ»¸öÔËËã·ûÓëÁ½¸öÊı½øĞĞÔËËã
-             * ÖØ¸´Ö±µ½µ±Ç°ÔËËã·û´óÓÚÕ»¶¥
-             * É¨ÃèÍêºó¶ÔÊ£ÏÂµÄÔËËã·ûÓëÊı×ÖÒÀ´Î¼ÆËã
+             * è®¡ç®—è¡¨è¾¾å¼
+             * ä»å·¦å‘å³æ‰«æï¼Œæ•°å­—å…¥numberæ ˆï¼Œè¿ç®—ç¬¦å…¥operatoræ ˆ
+             * +-åŸºæœ¬ä¼˜å…ˆçº§ä¸º1ï¼ŒÃ—Ã·åŸºæœ¬ä¼˜å…ˆçº§ä¸º2ï¼Œlog ln sin cos tan n!åŸºæœ¬ä¼˜å…ˆçº§ä¸º3ï¼Œâˆš^åŸºæœ¬ä¼˜å…ˆçº§ä¸º4
+             * æ‹¬å·å†…å±‚è¿ç®—ç¬¦æ¯”å¤–å±‚åŒçº§è¿ç®—ç¬¦ä¼˜å…ˆçº§é«˜4
+             * å½“å‰è¿ç®—ç¬¦ä¼˜å…ˆçº§é«˜äºæ ˆé¡¶å‹æ ˆï¼Œä½äºæ ˆé¡¶å¼¹å‡ºä¸€ä¸ªè¿ç®—ç¬¦ä¸ä¸¤ä¸ªæ•°è¿›è¡Œè¿ç®—
+             * é‡å¤ç›´åˆ°å½“å‰è¿ç®—ç¬¦å¤§äºæ ˆé¡¶
+             * æ‰«æå®Œåå¯¹å‰©ä¸‹çš„è¿ç®—ç¬¦ä¸æ•°å­—ä¾æ¬¡è®¡ç®—
              */
             public void process(String str) {
                 int weightPlus = 0, topOp = 0,
                 topNum = 0, flag = 1, weightTemp = 0;
-                //weightPlusÎªÍ¬Ò»£¨£©ÏÂµÄ»ù±¾ÓÅÏÈ¼¶£¬weightTempÁÙÊ±¼ÇÂ¼ÓÅÏÈ¼¶µÄ±ä»¯
-                //topOpÎªweight[]£¬operator[]µÄ¼ÆÊıÆ÷£»topNumÎªnumber[]µÄ¼ÆÊıÆ÷
-                //flagÎªÕı¸ºÊıµÄ¼ÆÊıÆ÷£¬1ÎªÕıÊı£¬-1Îª¸ºÊı
-                int weight[];  //±£´æoperatorÕ»ÖĞÔËËã·ûµÄÓÅÏÈ¼¶£¬ÒÔtopOp¼ÆÊı
-                double number[];  //±£´æÊı×Ö£¬ÒÔtopNum¼ÆÊı
-                char ch, ch_gai, operator[];//operator[]±£´æÔËËã·û£¬ÒÔtopOp¼ÆÊı
-                String num;//¼ÇÂ¼Êı×Ö£¬strÒÔ+-¡Á¡Â()sctgl!¡Ì^·Ö¶Î£¬+-¡Á¡Â()sctgl!¡Ì^×Ö·ûÖ®¼äµÄ×Ö·û´®¼´ÎªÊı×Ö
+                //weightPlusä¸ºåŒä¸€ï¼ˆï¼‰ä¸‹çš„åŸºæœ¬ä¼˜å…ˆçº§ï¼ŒweightTempä¸´æ—¶è®°å½•ä¼˜å…ˆçº§çš„å˜åŒ–
+                //topOpä¸ºweight[]ï¼Œoperator[]çš„è®¡æ•°å™¨ï¼›topNumä¸ºnumber[]çš„è®¡æ•°å™¨
+                //flagä¸ºæ­£è´Ÿæ•°çš„è®¡æ•°å™¨ï¼Œ1ä¸ºæ­£æ•°ï¼Œ-1ä¸ºè´Ÿæ•°
+                int weight[];  //ä¿å­˜operatoræ ˆä¸­è¿ç®—ç¬¦çš„ä¼˜å…ˆçº§ï¼Œä»¥topOpè®¡æ•°
+                double number[];  //ä¿å­˜æ•°å­—ï¼Œä»¥topNumè®¡æ•°
+                char ch, ch_gai, operator[];//operator[]ä¿å­˜è¿ç®—ç¬¦ï¼Œä»¥topOpè®¡æ•°
+                String num;//è®°å½•æ•°å­—ï¼Œsträ»¥+-Ã—Ã·()sctgl!âˆš^åˆ†æ®µï¼Œ+-Ã—Ã·()sctgl!âˆš^å­—ç¬¦ä¹‹é—´çš„å­—ç¬¦ä¸²å³ä¸ºæ•°å­—
                 weight = new int[MAXLEN];
                 number = new double[MAXLEN];
                 operator = new char[MAXLEN];
                 String expression = str;
-                StringTokenizer expToken = new StringTokenizer(expression,"+-¡Á¡Â()sctgl!¡Ì^");
+                StringTokenizer expToken = new StringTokenizer(expression,"+-Ã—Ã·()sctgl!âˆš^");
                 int i = 0;
                 while (i < expression.length()) {
                     ch = expression.charAt(i);
-                    //ÅĞ¶ÏÕı¸ºÊı
+                    //åˆ¤æ–­æ­£è´Ÿæ•°
                     if (i == 0) {
                         if (ch == '-')
                         	flag = -1;
                     } else if(expression.charAt(i-1) == '(' && ch == '-')
                     	flag = -1;
-                    //È¡µÃÊı×Ö£¬²¢½«Õı¸º·ûºÅ×ªÒÆ¸øÊı×Ö
+                    //å–å¾—æ•°å­—ï¼Œå¹¶å°†æ­£è´Ÿç¬¦å·è½¬ç§»ç»™æ•°å­—
                     if (ch <= '9' && ch >= '0'|| ch == '.' || ch == 'E') {
                         num = expToken.nextToken();
                         ch_gai = ch;
                         Log.e("guojs",ch+"--->"+i);
-                        //È¡µÃÕû¸öÊı×Ö
+                        //å–å¾—æ•´ä¸ªæ•°å­—
                         while (i < expression.length() && 
                                 (ch_gai <= '9' && ch_gai >= '0'|| ch_gai == '.' || ch_gai == 'E')) 
                         {
                             ch_gai = expression.charAt(i++);
-                            Log.e("guojs","iµÄÖµÎª£º"+i);
+                            Log.e("guojs","içš„å€¼ä¸ºï¼š"+i);
                         }
-                        //½«Ö¸ÕëÍË»ØÖ®Ç°µÄÎ»ÖÃ
+                        //å°†æŒ‡é’ˆé€€å›ä¹‹å‰çš„ä½ç½®
                         if (i >= expression.length()) i-=1; else {i-=2;}
                         if (num.compareTo(".") == 0) number[topNum++] = 0;
-                        //½«Õı¸º·ûºÅ×ªÒÆ¸øÊı×Ö
+                        //å°†æ­£è´Ÿç¬¦å·è½¬ç§»ç»™æ•°å­—
                         else {
                             number[topNum++] = Double.parseDouble(num)*flag;
                             flag = 1;
                         }
                     }
-                    //¼ÆËãÔËËã·ûµÄÓÅÏÈ¼¶
+                    //è®¡ç®—è¿ç®—ç¬¦çš„ä¼˜å…ˆçº§
                     if (ch == '(') weightPlus+=4;
                     if (ch == ')') weightPlus-=4;
-                    if (ch == '-' && flag == 1 || ch == '+' || ch == '¡Á'|| ch == '¡Â' || 
+                    if (ch == '-' && flag == 1 || ch == '+' || ch == 'Ã—'|| ch == 'Ã·' || 
                             ch == 's' ||ch == 'c' || ch == 't' || ch == 'g' || ch == 'l' || 
-                            ch == '!' || ch == '¡Ì' || ch == '^') {
+                            ch == '!' || ch == 'âˆš' || ch == '^') {
                         switch (ch) {
-                        	//+-µÄÓÅÏÈ¼¶×îµÍ£¬Îª1
+                        	//+-çš„ä¼˜å…ˆçº§æœ€ä½ï¼Œä¸º1
                             case '+':
                             case '-':
                                 weightTemp = 1 + weightPlus;
                                 break;
-                            //x¡ÂµÄÓÅÏÈ¼¶ÉÔ¸ß£¬Îª2
-                            case '¡Á':
-                            case '¡Â':
+                            //xÃ·çš„ä¼˜å…ˆçº§ç¨é«˜ï¼Œä¸º2
+                            case 'Ã—':
+                            case 'Ã·':
                                 weightTemp = 2 + weightPlus;
                                 break;
-                            //sincosÖ®ÀàÓÅÏÈ¼¶Îª3
+                            //sincosä¹‹ç±»ä¼˜å…ˆçº§ä¸º3
                             case 's':
                             case 'c':
                             case 't':
@@ -729,41 +729,41 @@ public class Jisuanqi extends Activity
                             case '!':
                                 weightTemp = 3 + weightPlus;
                                 break;
-                            //ÆäÓàÓÅÏÈ¼¶Îª4
+                            //å…¶ä½™ä¼˜å…ˆçº§ä¸º4
                             //case '^':
-                            //case '¡Ì':
+                            //case 'âˆš':
                             default:
                                 weightTemp = 4 + weightPlus;
                                 break;
                         }
-                        //Èç¹ûµ±Ç°ÓÅÏÈ¼¶´óÓÚ¶ÑÕ»¶¥²¿ÔªËØ£¬ÔòÖ±½ÓÈëÕ»
+                        //å¦‚æœå½“å‰ä¼˜å…ˆçº§å¤§äºå †æ ˆé¡¶éƒ¨å…ƒç´ ï¼Œåˆ™ç›´æ¥å…¥æ ˆ
                         if (topOp == 0 || weight[topOp-1] < weightTemp) {
                             weight[topOp] = weightTemp;
                             operator[topOp] = ch;
                             topOp++;
-                        //·ñÔò½«¶ÑÕ»ÖĞÔËËã·ûÖğ¸öÈ¡³ö£¬Ö±µ½µ±Ç°¶ÑÕ»¶¥²¿ÔËËã·ûµÄÓÅÏÈ¼¶Ğ¡ÓÚµ±Ç°ÔËËã·û
+                        //å¦åˆ™å°†å †æ ˆä¸­è¿ç®—ç¬¦é€ä¸ªå–å‡ºï¼Œç›´åˆ°å½“å‰å †æ ˆé¡¶éƒ¨è¿ç®—ç¬¦çš„ä¼˜å…ˆçº§å°äºå½“å‰è¿ç®—ç¬¦
                         }else {
                              while (topOp > 0 && weight[topOp-1] >= weightTemp) {
                                 switch (operator[topOp-1]) {
-                                	//È¡³öÊı×ÖÊı×éµÄÏàÓ¦ÔªËØ½øĞĞÔËËã
+                                	//å–å‡ºæ•°å­—æ•°ç»„çš„ç›¸åº”å…ƒç´ è¿›è¡Œè¿ç®—
                                     case '+':
                                         number[topNum-2]+=number[topNum-1];
                                         break;
                                     case '-':
                                         number[topNum-2]-=number[topNum-1];
                                         break;
-                                    case '¡Á':
+                                    case 'Ã—':
                                         number[topNum-2]*=number[topNum-1];
                                         break;
-                                    //ÅĞ¶Ï³ıÊıÎª0µÄÇé¿ö
-                                    case '¡Â':
+                                    //åˆ¤æ–­é™¤æ•°ä¸º0çš„æƒ…å†µ
+                                    case 'Ã·':
                                         if (number[topNum-1] == 0) {
                                             showError(1,str_old);
                                             return;
                                         }
                                         number[topNum-2]/=number[topNum-1];
                                         break;
-                                    case '¡Ì':
+                                    case 'âˆš':
                                         if(number[topNum-1] == 0 || (number[topNum-2] < 0 &&
                                                 number[topNum-1] % 2 == 0)) {
                                             showError(2,str_old);
@@ -776,7 +776,7 @@ public class Jisuanqi extends Activity
                                         number[topNum-2] = 
                                             Math.pow(number[topNum-2], number[topNum-1]);
                                         break;
-                                    //¼ÆËãÊ±½øĞĞ½Ç¶È»¡¶ÈµÄÅĞ¶Ï¼°×ª»»
+                                    //è®¡ç®—æ—¶è¿›è¡Œè§’åº¦å¼§åº¦çš„åˆ¤æ–­åŠè½¬æ¢
                                     //sin
                                     case 's':
                                         if(drg_flag == true) {
@@ -830,7 +830,7 @@ public class Jisuanqi extends Activity
                                         number[topNum-1] = Math.log(number[topNum-1]);
                                         topNum++;
                                         break;
-                                    //½×³Ë
+                                    //é˜¶ä¹˜
                                     case '!':
                                         if(number[topNum-1] > 170) {
                                             showError(3,str_old);
@@ -843,11 +843,11 @@ public class Jisuanqi extends Activity
                                         topNum++;
                                         break;
                                 }
-                                //¼ÌĞøÈ¡¶ÑÕ»µÄÏÂÒ»¸öÔªËØ½øĞĞÅĞ¶Ï
+                                //ç»§ç»­å–å †æ ˆçš„ä¸‹ä¸€ä¸ªå…ƒç´ è¿›è¡Œåˆ¤æ–­
                                 topNum--;
                                 topOp--;
                             }
-                            //½«ÔËËã·ûÈç¶ÑÕ»
+                            //å°†è¿ç®—ç¬¦å¦‚å †æ ˆ
                             weight[topOp] = weightTemp;
                             operator[topOp] = ch;
                             topOp++;
@@ -855,9 +855,9 @@ public class Jisuanqi extends Activity
                     }
                     i++;
                 }
-                //ÒÀ´ÎÈ¡³ö¶ÑÕ»µÄÔËËã·û½øĞĞÔËËã
+                //ä¾æ¬¡å–å‡ºå †æ ˆçš„è¿ç®—ç¬¦è¿›è¡Œè¿ç®—
                 while (topOp>0) {
-                	//+-xÖ±½Ó½«Êı×éµÄºóÁ½Î»ÊıÈ¡³öÔËËã
+                	//+-xç›´æ¥å°†æ•°ç»„çš„åä¸¤ä½æ•°å–å‡ºè¿ç®—
                     switch (operator[topOp-1]) {
                     case '+':
                         number[topNum-2]+=number[topNum-1];
@@ -865,18 +865,18 @@ public class Jisuanqi extends Activity
                     case '-':
                         number[topNum-2]-=number[topNum-1];
                         break;
-                    case '¡Á':
+                    case 'Ã—':
                         number[topNum-2]*=number[topNum-1];
                         break;
-                    //Éæ¼°µ½³ı·¨Ê±Òª¿¼ÂÇ³ıÊı²»ÄÜÎªÁãµÄÇé¿ö
-                    case '¡Â':
+                    //æ¶‰åŠåˆ°é™¤æ³•æ—¶è¦è€ƒè™‘é™¤æ•°ä¸èƒ½ä¸ºé›¶çš„æƒ…å†µ
+                    case 'Ã·':
                         if (number[topNum-1] == 0) {
                             showError(1,str_old);
                             return;
                         }
                         number[topNum-2]/=number[topNum-1];
                         break;
-                    case '¡Ì':
+                    case 'âˆš':
                         if(number[topNum-1] == 0 || (number[topNum-2] < 0 &&
                                 number[topNum-1] % 2 == 0)) {
                             showError(2,str_old);
@@ -924,7 +924,7 @@ public class Jisuanqi extends Activity
                         }
                         topNum++;
                         break;
-                    //¶ÔÊılog
+                    //å¯¹æ•°log
                     case 'g':
                         if(number[topNum-1] <= 0) {
                             showError(2,str_old);
@@ -933,7 +933,7 @@ public class Jisuanqi extends Activity
                         number[topNum-1] = Math.log10(number[topNum-1]);
                         topNum++;
                         break;
-                    //×ÔÈ»¶ÔÊıln
+                    //è‡ªç„¶å¯¹æ•°ln
                     case 'l':
                         if(number[topNum-1] <= 0) {
                             showError(2,str_old);
@@ -942,7 +942,7 @@ public class Jisuanqi extends Activity
                         number[topNum-1] = Math.log(number[topNum-1]);
                         topNum++;
                         break;
-                    //½×³Ë
+                    //é˜¶ä¹˜
                     case '!':
                         if(number[topNum-1] > 170) {
                             showError(3,str_old);
@@ -955,40 +955,40 @@ public class Jisuanqi extends Activity
                         topNum++;
                         break;
                     }
-                    //È¡¶ÑÕ»ÏÂÒ»¸öÔªËØ¼ÆËã
+                    //å–å †æ ˆä¸‹ä¸€ä¸ªå…ƒç´ è®¡ç®—
                     topNum--;
                     topOp--;
                 }
-                //Èç¹ûÊÇÊı×ÖÌ«´ó£¬ÌáÊ¾´íÎóĞÅÏ¢
+                //å¦‚æœæ˜¯æ•°å­—å¤ªå¤§ï¼Œæç¤ºé”™è¯¯ä¿¡æ¯
                 if(number[0] > 7.3E306) {
                     showError(3,str_old);
                     return;
                 }
-                //Êä³ö×îÖÕ½á¹û
+                //è¾“å‡ºæœ€ç»ˆç»“æœ
                 input.setText(String.valueOf(FP(number[0]))); 
-                tip.setText("¼ÆËãÍê±Ï£¬Òª¼ÌĞøÇë°´¹éÁã¼ü C");
+                tip.setText("è®¡ç®—å®Œæ¯•ï¼Œè¦ç»§ç»­è¯·æŒ‰å½’é›¶é”® C");
                 mem.setText(str_old+"="+String.valueOf(FP(number[0])));
             }
             
             /*
-             * FP = floating point ¿ØÖÆĞ¡ÊıÎ»Êı£¬´ïµ½¾«¶È
-             * ·ñÔò»á³öÏÖ 0.6-0.2=0.39999999999999997µÄÇé¿ö£¬ÓÃFP¼´¿É½â¾ö£¬Ê¹µÃÊıÎª0.4
-             * ±¾¸ñÊ½¾«¶ÈÎª15Î»
+             * FP = floating point æ§åˆ¶å°æ•°ä½æ•°ï¼Œè¾¾åˆ°ç²¾åº¦
+             * å¦åˆ™ä¼šå‡ºç° 0.6-0.2=0.39999999999999997çš„æƒ…å†µï¼Œç”¨FPå³å¯è§£å†³ï¼Œä½¿å¾—æ•°ä¸º0.4
+             * æœ¬æ ¼å¼ç²¾åº¦ä¸º15ä½
              */
             public double FP(double n) {
-                //NumberFormat format=NumberFormat.getInstance();  //´´½¨Ò»¸ö¸ñÊ½»¯Ààf
-                //format.setMaximumFractionDigits(18);    //ÉèÖÃĞ¡ÊıÎ»µÄ¸ñÊ½
+                //NumberFormat format=NumberFormat.getInstance();  //åˆ›å»ºä¸€ä¸ªæ ¼å¼åŒ–ç±»f
+                //format.setMaximumFractionDigits(18);    //è®¾ç½®å°æ•°ä½çš„æ ¼å¼
                 DecimalFormat format = new DecimalFormat("0.#############");
                 return Double.parseDouble(format.format(n));
             }
             
             /*
-             * ½×³ËËã·¨
+             * é˜¶ä¹˜ç®—æ³•
              */
             public double N(double n) { 
                 int i = 0;
                 double sum = 1;
-                //ÒÀ´Î½«Ğ¡ÓÚµÈÓÚnµÄÖµÏà³Ë
+                //ä¾æ¬¡å°†å°äºç­‰äºnçš„å€¼ç›¸ä¹˜
                 for(i = 1;i <= n;i++) {
                     sum = sum*i;
                 }
@@ -996,22 +996,22 @@ public class Jisuanqi extends Activity
             }
             
             /*
-             * ´íÎóÌáÊ¾£¬°´ÁË"="Ö®ºó£¬Èô¼ÆËãÊ½ÔÚprocess()¹ı³ÌÖĞ£¬³öÏÖ´íÎó£¬Ôò½øĞĞÌáÊ¾
+             * é”™è¯¯æç¤ºï¼ŒæŒ‰äº†"="ä¹‹åï¼Œè‹¥è®¡ç®—å¼åœ¨process()è¿‡ç¨‹ä¸­ï¼Œå‡ºç°é”™è¯¯ï¼Œåˆ™è¿›è¡Œæç¤º
              */
             public void showError(int code ,String str) {
                 String message="";
                 switch (code) {
                 case 1:
-                    message = "Áã²»ÄÜ×÷³ıÊı";
+                    message = "é›¶ä¸èƒ½ä½œé™¤æ•°";
                     break;
                 case 2:
-                    message = "º¯Êı¸ñÊ½´íÎó";
+                    message = "å‡½æ•°æ ¼å¼é”™è¯¯";
                     break;
                 case 3:
-                    message = "ÖµÌ«´óÁË£¬³¬³ö·¶Î§";
+                    message = "å€¼å¤ªå¤§äº†ï¼Œè¶…å‡ºèŒƒå›´";
                 }
                 input.setText("\""+str+"\""+": "+message);
-                tip.setText(message+"\n"+"¼ÆËãÍê±Ï£¬Òª¼ÌĞøÇë°´¹éÁã¼ü C");
+                tip.setText(message+"\n"+"è®¡ç®—å®Œæ¯•ï¼Œè¦ç»§ç»­è¯·æŒ‰å½’é›¶é”® C");
             }  
         }
 }
